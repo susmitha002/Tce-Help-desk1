@@ -4,7 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-  "start": "some command to be run", 
+  "start": "webpack-dev-server --mode development", 
   "test": "(eslint lib || true) && jest"
 },
   "dependencies": {
