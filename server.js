@@ -57,11 +57,25 @@ app.post('/api/change-password', async (req, res) => {
 	}
 })
 
-app.get("/change-password", (req, res)=>{
-	const data = fs.readFileSync("C:\\Users\\susmi\\Downloads\\helpdesk\\node-auth-youtube-master\\static\\change-password.html", "UTF-8")
-	res.send(data);
-})
+const staticDir = path.join(__dirname, 'static');
+const htmlFilePath = path.join(staticDir, 'change-password.html');
 
+app.get('/change-password', (req, res) => {
+  try {
+    // Read the HTML file asynchronously and send it as a response
+    fs.readFile(htmlFilePath, 'utf-8', (err, data) => {
+      if (err) {
+        console.error('Error reading file:', err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.send(data);
+      }
+    });
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 app.post('/api/deleteuser', async (req, res) => {
 	const { token, newpassword: plainTextPassword } = req.body
@@ -107,11 +121,25 @@ app.post('/api/deleteuser', async (req, res) => {
 	}
 })
 
-app.get("/deleteuser", (req, res)=>{
-	const data = fs.readFileSync("C:\\Users\\susmi\\Downloads\\helpdesk\\node-auth-youtube-master\\static\\deleteuser.html", "UTF-8")
-	res.send(data);
-})
+const staticDirs = path.join(__dirname, 'static');
+const htmlFilePaths = path.join(staticDirs, 'deleteuser.html');
 
+app.get('/deleteuser', (req, res) => {
+  try {
+    // Read the HTML file asynchronously and send it as a response
+    fs.readFile(htmlFilePaths, 'utf-8', (err, data) => {
+      if (err) {
+        console.error('Error reading file:', err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.send(data);
+      }
+    });
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 app.post('/api/login', async (req, res) => {
 	const { username, password } = req.body
 	const user = await User.findOne({ username }).lean()
@@ -152,10 +180,28 @@ app.post('/api/login', async (req, res) => {
 	res.json({ status: 'error', error: 'Invalid username/password' })
 })
 
-app.get("/login", (req, res)=>{
-	const data = fs.readFileSync("C:\\Users\\susmi\\Downloads\\helpdesk\\node-auth-youtube-master\\static\\login.html", "UTF-8")
-	res.send(data);
-})
+
+// Assuming that your HTML file is located in a 'static' directory within your project
+const staticDirlogin = path.join(__dirname, 'static');
+const htmlFilePathlogin = path.join(staticDirlogin, 'login.html');
+
+app.get('/login', (req, res) => {
+  try {
+    // Read the HTML file asynchronously and send it as a response
+    fs.readFile(htmlFilePathlogin, 'utf-8', (err, data) => {
+      if (err) {
+        console.error('Error reading file:', err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.send(data);
+      }
+    });
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 app.post('/api/register', async (req, res) => {
 	const { username, password: plainTextPassword } = req.body
@@ -193,16 +239,29 @@ app.post('/api/register', async (req, res) => {
 
 	res.json({ status: 'ok' })
 })
-app.get("/event", (req, res)=>{
-	// const data = fs.readFileSync("C:\\Users\\ManojKumar\\Desktop\\Sem 5\\CAT 2\\Web tech\\node-auth-youtube-master\\static\\event.html", "UTF-8")
-	res.sendFile("C:\\Users\\susmi\\Downloads\\helpdesk\\node-auth-youtube-master\\static\\event.html");
-})
-
-app.get("/feedback", (req, res)=>{
-	// const data = fs.readFileSync("C:\\Users\\ManojKumar\\Desktop\\Sem 5\\CAT 2\\Web tech\\node-auth-youtube-master\\static\\event.html", "UTF-8")
-	res.sendFile("C:\\Users\\susmi\\Downloads\\helpdesk\\node-auth-youtube-master\\static\\feedback.html");
-})
-
+function serveStaticHtml(req, res, fileName) {
+	try {
+	  // Assuming that your HTML files are located in a 'static' directory within your project
+	  const staticDir = path.join(__dirname, 'static');
+	  const htmlFilePath = path.join(staticDir, fileName);
+  
+	  // Use res.sendFile to send the HTML file
+	  res.sendFile(htmlFilePath);
+	} catch (err) {
+	  console.error('Error:', err);
+	  res.status(500).send('Internal Server Error');
+	}
+  }
+  
+  // Route for serving "event.html"
+  app.get('/event', (req, res) => {
+	serveStaticHtml(req, res, 'event.html');
+  });
+  
+  // Route for serving "feedback.html"
+  app.get('/feedback', (req, res) => {
+	serveStaticHtml(req, res, 'feedback.html');
+  });
 app.post('/api/feedback', async (req, res) => {
 	const { name, email,phone,msg } = req.body
 
@@ -226,15 +285,30 @@ app.get("/tour", (req, res)=>{
 	app.use(express.static("tour"));
 })
 
-app.get("/faq", (req, res)=>{
-	// const data = fs.readFileSync("C:\\Users\\ManojKumar\\Desktop\\Sem 5\\CAT 2\\Web tech\\node-auth-youtube-master\\static\\event.html", "UTF-8")
-	res.sendFile("C:\\Users\\susmi\\Downloads\\helpdesk\\node-auth-youtube-master\\static\\faq.html");
-})
+const staticDirfaq = path.join(__dirname, 'static');
+const htmlFilePathfaq = path.join(staticDirfaq, 'faq.html');
 
-app.get("/queries", (req, res)=>{
-	// const data = fs.readFileSync("C:\\Users\\ManojKumar\\Desktop\\Sem 5\\CAT 2\\Web tech\\node-auth-youtube-master\\static\\event.html", "UTF-8")
-	res.sendFile("C:\\Users\\susmi\\Downloads\\helpdesk\\node-auth-youtube-master\\static\\q&a.html");
-})
+app.get('/faq', (req, res) => {
+  try {
+    // Use res.sendFile to send the HTML file
+    res.sendFile(htmlFilePathfaq);
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+const staticDirqueries = path.join(__dirname, 'static');
+const htmlFilePathqueries = path.join(staticDirqueries, 'q&a.html');
+
+app.get('/queries', (req, res) => {
+  try {
+    // Use res.sendFile to send the HTML file
+    res.sendFile(htmlFilePathqueries);
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 app.get("/aboutus", (req, res)=>{
 	// const data = fs.readFileSync("C:\\Users\\ManojKumar\\Desktop\\Sem 5\\CAT 2\\Web tech\\node-auth-youtube-master\\static\\event.html", "UTF-8")
@@ -242,20 +316,20 @@ app.get("/aboutus", (req, res)=>{
 	app.use(express.static("Aboutus"));
 })
 
-app.get("/admin", (req, res)=>{
-	Feedback.find({},function(err,feedback){
-		Feedback.count({},function(err,countf){
-			User.find({},function(err,user){
-				User.count({},function(err,countu){
-					deletedUser.count({},function(err,dcountu){
-		res.render("C:\\Users\\susmi\\Downloads\\helpdesk\\node-auth-youtube-master\\static\\admin.ejs",{feedback,countf,user,countu,dcountu})
+app.get('/admin', (req, res) => {
+	Feedback.find({}, function (err, feedback) {
+	  Feedback.count({}, function (err, countf) {
+		User.find({}, function (err, user) {
+		  User.count({}, function (err, countu) {
+			deletedUser.count({}, function (err, dcountu) {
+			  const adminTemplatePath = path.join(__dirname, 'static', 'admin.ejs');
+			  res.render(adminTemplatePath, { feedback, countf, user, countu, dcountu });
+			});
+		  });
+		});
+	  });
 	})
-				})
-			})
-		})
-	})
-})
-
+});
 app.listen(process.env.PORT|| 5000, () => {
-	console.log('Server up at 9999')
+	console.log('Server up at 5000')
 })
