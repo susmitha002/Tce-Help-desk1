@@ -2,7 +2,7 @@
   "name": "node-auth",
   "version": "1.0.0",
   "main": "server.js",
-  "license": "MIT",
+  "license": "Unlicense",
   "scripts": {
   "start": "webpack-dev-server --mode development", 
   "test": "(eslint lib || true) && jest"
