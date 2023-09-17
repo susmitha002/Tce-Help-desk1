@@ -23,6 +23,8 @@ app.set('view engine','ejs');
 app.use('/', express.static(path.join(__dirname, 'static')))
 app.use(bodyParser.json())
 
+app.use('/static', express.static(path.join(__dirname, 'static')));
+
 app.post('/api/change-password', async (req, res) => {
 	const { token, newpassword: plainTextPassword } = req.body
 
