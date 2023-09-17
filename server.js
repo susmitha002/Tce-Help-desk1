@@ -310,11 +310,20 @@ app.get('/queries', (req, res) => {
   }
 });
 
-app.get("/aboutus", (req, res)=>{
-	// const data = fs.readFileSync("C:\\Users\\ManojKumar\\Desktop\\Sem 5\\CAT 2\\Web tech\\node-auth-youtube-master\\static\\event.html", "UTF-8")
-	// res.sendFile("C:\\Users\\ManojKumar\\Desktop\\Sem 5\\CAT 2\\Web tech\\node-auth-youtube-master\\static\\About Us section\\index.html");
-	app.use(express.static("Aboutus"));
-})
+
+app.get('/aboutus', (req, res) => {
+  try {
+    // Assuming that your HTML file is located in the 'Aboutus' directory within your project
+    const aboutUsFilePath = path.join(__dirname, 'Aboutus', 'index.html');
+
+    // Use res.sendFile to send the HTML file
+    res.sendFile(aboutUsFilePath);
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 app.get('/admin', (req, res) => {
 	Feedback.find({}, function (err, feedback) {
