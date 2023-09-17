@@ -2,9 +2,11 @@
   "name": "node-auth",
   "version": "1.0.0",
   "main": "server.js",
-  "start": "some command to be run",
-  "test": "(eslint lib || true) && jest",
   "license": "MIT",
+  "scripts": {
+  "start": "some command to be run", 
+  "test": "(eslint lib || true) && jest"
+}
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
