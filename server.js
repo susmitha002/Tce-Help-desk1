@@ -314,7 +314,7 @@ app.get('/queries', (req, res) => {
 app.get('/aboutus', (req, res) => {
   try {
     // Assuming that your HTML file is located in the 'Aboutus' directory within your project
-    const aboutUsFilePath = path.join(__dirname, 'Aboutus', 'index.html');
+    const aboutUsFilePath = path.join(__dirname,'static', 'Aboutus', 'index.html');
 
     // Use res.sendFile to send the HTML file
     res.sendFile(aboutUsFilePath);
