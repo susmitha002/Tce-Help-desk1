@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUERIES</title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+<style>
+
+body{
+    font-family: 'Work Sans', sans-serif;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNZ8YL_AgDu2dXDnDFakvME3DDb9Rz13C1A&usqp=CAU');
+    background-size: cover;
+}
+h1{
+    color:black
+}
+.faq-heading{
+    border-bottom: #0c0c0c;
+    padding: 20px 60px;
+}
+.faq-container{
+display: flex;
+justify-content: center;
+flex-direction: column;
+
+}
+.hr-line{
+  width: 60%;
+  margin: auto;
+  
+}
+/* Style the buttons that are used to open and close the faq-page body */
+.faq-page {
+    /* background-color: #eee; */
+    color: #000000;
+    cursor: pointer;
+    padding: 30px;
+    width: 60%;
+    border: none;
+    outline: none;
+    transition: 0.6s;
+    margin: auto;
+
+}
+.faq-body{
+    margin: auto;
+    /* text-align: center; */
+   width: 50%; 
+   padding: auto;
+   
+}
+
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active,
+.faq-page:hover {
+    background-color: #F9F9F9;
+}
+
+/* Style the faq-page panel. Note: hidden by default */
+.faq-body {
+    padding: 0 18px;
+    /* background-color: rgb(255, 255, 255); */
+    display: none;
+    overflow: hidden;
+    padding-bottom: 60px;
+}
+
+.faq-page:after {
+    content: '\02795';
+    /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #000000;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2796";
+    /* Unicode character for "minus" sign (-) */
+}
+
+/* .form{
+    width: 100px;
+    height:30px;
+    
+} */
+
+</style>
+
+</head>
+
+<body ng-app="myApp" ng-controller="formCtrl">
+    <main>
+
+        <h1 class="faq-heading">Queries need to be cleared</h1>
+        <section class="faq-container">
+            <div class="faq-one">
+
+                <!-- faq question -->
+                <h1 class="faq-page">What is Minimum CGPA to be maintaned?</h1>
+
+                <!-- faq answer -->
+                <div class="faq-body">
+                   <div>
+  <p><h4>{{master1.ans}} {{master1.firstName}}</h4></p>
+  <p>{{master1.lastName}}</p>
+  <form novalidate>
+  	<h3>Post your answer</h3>
+    Name:<br>
+    <input type="text" ng-model="user1.firstName">
+    <br>
+    Answer:<br>
+    <textarea type="text" ng-model="user1.lastName" id="w3review" name="w3review" rows="4" cols="50"></textarea>
+    <br>
+    <button ng-click="reset1()">POST</button>
+  </form>
+</div>     
+                        
+                </div>
+            </div>
+            <hr class="hr-line">
+
+            <div class="faq-two">
+
+                <!-- faq question -->
+                <h1 class="faq-page">Why do we need to pay Exam fees every sem?</h1>
+
+                <!-- faq answer -->
+
+                <div class="faq-body">
+                        <div>
+                            <p><h4>{{master2.ans}} {{master2.firstName}}</h4></p>
+                            <p>{{master2.lastName}}</p>
+                            <form novalidate>
+                                <h3>Post your answer</h3>
+                              Name:<br>
+                              <input type="text" ng-model="user2.firstName">
+                              <br>
+                              Answer:<br>
+                              <textarea type="text" ng-model="user2.lastName" id="w3review" name="w3review" rows="4" cols="50"></textarea>
+                              <br>
+                              <button ng-click="reset2()">POST</button>
+                            </form>
+                          </div>
+                </div>
+            </div>
+            <hr class="hr-line">
+
+
+            <div class="faq-three">
+
+                <!-- faq question -->
+    <h1 class="faq-page">Does Cultural has any kind of dress code?</h1>
+
+                <!-- faq answer -->
+                <div class="faq-body">
+                        <div>
+                            <p><h4>{{master3.ans}} {{master3.firstName}}</h4></p>
+                            <p>{{master3.lastName}}</p>
+                            <form novalidate>
+                                <h3>Post your answer</h3>
+                              Name:<br>
+                              <input type="text" ng-model="user3.firstName">
+                              <br>
+                              Answer:<br>
+                              <textarea type="text" ng-model="user3.lastName" id="w3review" name="w3review" rows="4" cols="50"></textarea>
+                              <br>
+                              <button ng-click="reset3()">POST</button>
+                            </form>
+                          </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+<script>
+var faq = document.getElementsByClassName("faq-page");
+var i;
+
+for (i = 0; i < faq.length; i++) {
+    faq[i].addEventListener("click", function () {
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+        this.classList.toggle("active");
+
+        /* Toggle between hiding and showing the active panel */
+        var body = this.nextElementSibling;
+        if (body.style.display === "block") {
+            body.style.display = "none";
+        } else {
+            body.style.display = "block";
+        }
+    });
+}
+var app = angular.module('myApp', []);
+app.controller('formCtrl', function($scope) {
+    $scope.master1 = {firstName:"John", lastName:"Doe",ans:""};
+    $scope.master2 = {firstName:"John", lastName:"Doe",ans:""};
+    $scope.master3 = {firstName:"John", lastName:"Doe",ans:""};
+  
+    $scope.reset1 = function() {
+        $scope.master1 = angular.copy($scope.user1);
+        $scope.user1 = {firstName:"", lastName:"",ans:"Posted by :"};
+    };
+    $scope.reset1();
+    $scope.reset2 = function() {
+        $scope.master2 = angular.copy($scope.user2);
+        $scope.user2 = {firstName:"", lastName:"",ans:"Posted by :"};
+    };
+    $scope.reset2();
+    $scope.reset3 = function() {
+        $scope.master3 = angular.copy($scope.user3);
+        $scope.user3 = {firstName:"", lastName:"",ans:"Posted by :"};
+    };
+    $scope.reset3();
+});
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style>
+        /* Styling the body */
+        body {
+            margin: auto;
+            padding: 0;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+        /* Styling section, giving background
+            image and dimensions */
+        section {
+            width: 100%;
+            height: 100vh;
+            background:
+                url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNZ8YL_AgDu2dXDnDFakvME3DDb9Rz13C1A&usqp=CAU');
+            background-size: cover;
+        }
+
+        /*Styling the nav bar*/
+        section .nav{
+            padding-left: 20px;
+            margin-left:20px;
+            padding-top:20px;
+        }
+
+        /* Styling the left floating section */
+        section .leftBox {
+            width: 50%;
+            height: 100%;
+            float: left;
+            padding: 50px;
+            box-sizing: border-box;
+            
+            padding-top: 100px;   
+                   
+        }
+
+
+        /* Styling the background of
+            left floating section */
+        section .leftBox .content {
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            justify-content: center;
+            
+            padding-top: 60px;
+            transition: .5s;
+        }
+
+        /* Styling the hover effect 
+            of left floating section */
+        section .leftBox .content:hover {      
+            background: #000000;
+        }
+
+        /* Styling the header of left
+            floating section */
+        section .leftBox .content h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 50px;
+            text-transform: uppercase;
+        }
+
+        /* Styling the paragraph of
+            left floating section */
+        section .leftBox .content p {
+            margin: 10px 0 0;
+            padding: 0;
+            
+        }
+
+        /* Styling the three events section */
+        section .events {
+            position:relative;
+            width: 50%;
+            height: 65%;
+            background: rgba(0, 0, 0, 0);
+            float: right;
+            top:50px;
+            box-sizing:inherit;            
+        }
+
+
+        /* Styling the links of
+        the events section */
+        section .events ul {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: 0;
+            padding: 40px;
+            box-sizing: border-box;
+            
+        }
+
+        /* Styling the lists of the event section */
+        section .events ul li {
+            list-style: none;
+            background: #fff;
+            box-sizing: border-box; 
+            height: 200px;
+            margin: 15px 0;
+        }
+
+        /* Styling the time class of events section */
+        section .events ul li .time {
+            position: relative;
+            padding: 20px;
+            background: #262626;
+            box-sizing: border-box;
+            width: 30%;
+            height: 100%;
+            float: left;
+            text-align: center;
+            transition: .5s;
+        }
+
+        /* Styling the hover effect
+            of events section */
+        section .events ul li:hover .time {
+            background: #7700ff;
+        }
+
+        /* Styling the header of time
+            class of events section */
+        section .events ul li .time h2 {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 60px;
+            line-height: 30px;
+        }
+
+        /* Styling the texts of time
+        class of events section */
+        section .events ul li .time h2 span {
+            font-size: 30px;
+        }
+
+        /* Styling the details
+        class of events section */
+        section .events ul li .details {
+            padding: 20px;
+            background: #fff;
+            box-sizing: border-box;
+            width: 70%;
+            height: 100%;
+            float: left;
+        }
+
+        /* Styling the header of the
+        details class of events section */
+        section .events ul li .details h3 {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            font-size: 22px;
+        }
+
+        /* Styling the lists of details
+        class of events section */
+        section .events ul li .details p {
+            position: relative;
+            margin: 10px 0 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        /* Styling the links of details
+        class of events section */
+        section .events ul li .details a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 15px;
+            border: 1.5px solid #262626;
+            margin-top: 8px;
+            font-size: 18px;
+            transition: .5s;
+        }
+
+        /* Styling the details class's hover effect */
+        section .events ul li .details a:hover {
+            background: #000000;
+            color: #fff;
+            border-color: #100048;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <section>
+        <div class="nav">
+            <div id="mySidenav" class="sidenav">
+                <a src="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="/aboutus">About us</a>
+                <a href="/queries">Queries</a>
+                <a href="/faq">Faq</a>
+                <a href="/tour">Clg-Tour</a>
+                <a href="/feedback">Feedback</a>
+                <a href="/change-password">Change-password</a>
+                <a href="/deleteuser">Delete account</a>
+            </div>          
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+        </div>
+        <div class="leftBox">
+
+            <div class="content">
+                <h1>
+                    Events and Webinars
+                </h1>
+
+                <p>
+                    With the permission from principal we club members are conduting either a technical or non -
+                    technical event or Competitions. Students who are willing
+                    to participate can click on the register now button. This will redirect you to a gform link where
+                    you
+                    can register or confirm your seats. The form will be
+                    closed after the time ends. Register as soon as possible to grab your seats. For technical events OD
+                    will be available. Old archive events will be available
+                    below for your information.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="events">
+            <ul>
+                <li>
+                    <div class="time">
+                        <h2>
+                            10 <br><span>September</span>
+                        </h2>
+                    </div>
+                    <div class="details">
+                        <h3>
+                            CNI Hackathon 2022.
+                        </h3>
+
+                        <p>
+                            The hackathon is divided into two tracks: Data Science Challenge, and AI Challenge. The
+                            former is related to a bus fleet dataset obtained from BMTC (Bengaluru Metropolitan
+                            Transport Corporation).
+                            The latter involves creating a bot that competes with another bot for conquering more cells
+                            (area) in a grid.
+                        </p>
+
+
+                        <a href="https://forms.gle/3QEuHToJxRexc9oY8" ng-click="myFunction1()">Register Now</a>
+                        <p style="float: right; clear: right">Total registrations till now : {{count1}}</p>
+                    </div>
+                    <div style="clear: both;"></div>
+                </li>
+
+                <li>
+                    <div class="time">
+                        <h2>
+                            27 <br><span>September</span>
+                        </h2>
+                    </div>
+                    <div class="details">
+                        <h3>
+                            Introduction to Blockchain Technology
+                        </h3>
+
+                        <p>
+                            Blockchain overview. Blockchain defined: Blockchain is a shared,
+                            immutable ledger that facilitates the process of recording transactions and tracking assets
+                            in a business network.
+                            An asset can be tangible or intangible
+                        </p>
+
+                        <a href="https://forms.gle/3QEuHToJxRexc9oY8 " ng-click="myFunction2()">Register Now</a>
+                        <p style="float: right; clear: right">Total registrations till now : {{count2}}</p>
+                    
+                    </div>
+                    <div style="clear:both;"></div>
+                </li>
+
+                <li>
+                    <div class="time">
+                        <h2>
+                            3 <br><span>October</span>
+                        </h2>
+                    </div>
+                    <div class="details">
+                        <h3>
+                            Pros and cons of IOT
+                        </h3>
+
+                        <p>
+                            The Internet of Things (IoT) is how we describe the digitally connected universe of everyday
+                            physical devices.
+                        </p>
+
+
+                        <a href="https://forms.gle/3QEuHToJxRexc9oY8" ng-click="myFunction3()">Register Now</a>
+                        <p style="float: right; clear: right">Total registrations till now : {{count3}}</p>
+
+                    </div>
+                    <div style="clear:both;"></div>
+                </li>
+               
+            </ul>
+        </div>
+    </section>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $interval) {
+            $scope.count1 = 0;
+            $scope.count2 = 0;
+            $scope.count3 = 0;
+            $scope.myFunction1 = function () {
+                $scope.count1++;
+            }
+            $scope.myFunction2 = function () {
+                $scope.count2++;
+            }
+            $scope.myFunction3 = function () {
+                $scope.count3++;
+            }
+            $scope.theTime = new Date().toLocaleTimeString();
+            $interval(function () {
+                $scope.theTime = new Date().toLocaleTimeString();
+            }, 1000);
+        });
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+</body>
+
+</html>

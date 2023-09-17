@@ -1,0 +1,3 @@
+mongodb+srv://kmkrxx:<password>@cluster0.zr2oflb.mongodb.net/?retryWrites=true&w=majority
+"mongodb+srv://cluster0.zr2oflb.mongodb.net/myFirstDatabase" --apiVersion 1 --username kmkrxx
+res.json({ status: 'ok', data: token })

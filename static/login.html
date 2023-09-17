@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Login</title>
+	</head>
+	<style type="text/css">
+		body 
+		{background-image: url('https://mooc.tce.edu/pluginfile.php/2/course/section/202/MOOC-Courses-Homepage-BG.jpeg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size:99% 99%;}
+    	.container
+    	{position: absolute;
+     	top:50%;
+     	left:50%;
+     	transform: translate(-50%, -50%);
+     	width: 480px;
+     	height:600px;
+     	padding:50px 40px;
+     	box-sizing: border-box;
+     	background: rgba(0,0,0,.5);}
+     	.user_logo
+     	{width: 100px;height: 100px;border-radius: 50%;overflow: hidden;position: absolute;top: calc(-100px/2); left:calc(50% - 50px)}
+    	h3
+    	{margin: 0;padding: 0 0 20px; color: #efed40;text-align: center;font-size: 200%}
+    	.container p 
+    	{font-weight: bold;color:#fff; font-size: 160%}
+		.container h1 
+    	{font-weight: bold;color:#fff; font-size: 180%}
+    	.container input[type="submit"]
+    	{border: none;outline:none;height: 50px;width:100px; color:black;background:#fff;cursor: pointer;border-radius: 30px;font-size: 150%}
+        .container input[type="submit"]:hover {background:yellow;}
+    	.container input[type="text"]
+    	{border: none;outline: none;height: 30px;width: 290px;color: black;background: #fff;font-size: 16px;border-radius: 10px}
+    	.container input[type="password"]
+    	{border: none;outline: none;height: 30px;width: 290px;color: black;background: #fff;font-size: 16px;border-radius: 10px}
+        .container a { color:yellow;font-size:25px; }
+        .container a:hover {color:orange;font-size:30px}
+
+	</style>
+
+	<body>
+		<h1 style="text-align: center;">TCE HELP DESK</h1>
+		<div class="container">
+			<h1>Login</h1>
+			<form id="login" action="/change-password" method = "post">
+				<p>Username:</p>
+				<input id="username" autocomplete="off" type="text" name="user" >
+				<p>Password:</p>
+				<input id = "password" autocomplete="off" type="password" name="user_password" ><br><br>
+				<input type="submit" name="submit" value="Log in"><br><br>
+				<p>Don't have an account? <a href="/">Register</a></p>
+			</form>
+		<script>
+			const form = document.getElementById('login')
+			form.addEventListener('submit', login)
+
+			async function login(event) {
+				event.preventDefault()
+				const username = document.getElementById('username').value
+				const password = document.getElementById('password').value
+
+				const result = await fetch('/api/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						username,
+						password
+					})
+				}).then((res) => res.json())
+
+				if (result.status === 'ok') {
+					// everythign went fine
+					console.log('Got the token: ', result.data)
+					localStorage.setItem('token', result.data)
+					alert('Success')
+					window.location.replace('/event');
+				}
+				if (result.status === 'okadmin') {
+					// everythign went fine
+					console.log('Got the token: ', result.data)
+					localStorage.setItem('token', result.data)
+					alert('Welcome admin')
+					window.location.replace('/admin');
+				} 
+				else {
+					alert(result.error)
+				}
+			}
+		</script>
+	</body>
+</html>
